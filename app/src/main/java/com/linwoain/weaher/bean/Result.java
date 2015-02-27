@@ -13,7 +13,7 @@ public class Result extends BaseBean {
 	
 	private Today today;
 	
-	private List<FutureWeather> list;
+	private List<FutureWeather> future;
 
 	public SK getSk() {
 		return sk;
@@ -31,13 +31,12 @@ public class Result extends BaseBean {
 		this.today = today;
 	}
 
-	public List<FutureWeather> getList() {
-		return list;
-	}
 
-	public void setList(List<FutureWeather> list) {
-		this.list = list;
-	}
-	
-	
+    public List<FutureWeather> getFuture() {
+        return future;
+    }
+
+    public void setFuture(List<FutureWeather> future) {
+        this.future = future;
+    }
 }
