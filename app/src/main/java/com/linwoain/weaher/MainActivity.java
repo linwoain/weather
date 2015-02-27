@@ -36,6 +36,9 @@ public class MainActivity extends ActionBarActivity {
     
     @ViewInject(R.id.city)
     private TextView tv_city;
+    
+    @ViewInject(R.id.temp_room)
+    private TextView temp_room;
 
     String city = null;
 
@@ -102,11 +105,10 @@ public class MainActivity extends ActionBarActivity {
                 
                 LLogUtils.i(weaherInfo.getResult().getFuture());
                 SK sk = weaherInfo.getResult().getSk();
-
                 Today today = weaherInfo.getResult().getToday();
                 temp.setText(sk.getTemp() + "℃");
-
                 weather.setText(today.getWeather());
+                temp_room.setText(today.getTemperature());
 
 
             }
