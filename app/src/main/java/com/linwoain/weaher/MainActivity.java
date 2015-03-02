@@ -39,6 +39,8 @@ public class MainActivity extends ActionBarActivity {
     
     @ViewInject(R.id.temp_room)
     private TextView temp_room;
+    @ViewInject(R.id.time)
+    private TextView time;
 
     String city = null;
 
@@ -103,12 +105,13 @@ public class MainActivity extends ActionBarActivity {
                 WeaherInfo weaherInfo = GsonUtil.get(result, WeaherInfo.class);
 
                 
-                LLogUtils.i(weaherInfo.getResult().getFuture());
+                LLogUtils.i(weaherInfo);
                 SK sk = weaherInfo.getResult().getSk();
                 Today today = weaherInfo.getResult().getToday();
                 temp.setText(sk.getTemp() + "℃");
                 weather.setText(today.getWeather());
                 temp_room.setText(today.getTemperature());
+                time.setText(sk.getTime());
 
 
             }
