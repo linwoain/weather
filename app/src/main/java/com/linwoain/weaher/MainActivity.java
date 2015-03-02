@@ -25,22 +25,33 @@ import java.net.URLEncoder;
 
 public class MainActivity extends ActionBarActivity {
 
-    @ViewInject(R.id.temp)
-    private TextView temp;
-    
+    @ViewInject(R.id.sk_temp)
+    private TextView sk_temp;
+
+    @ViewInject(R.id.sk_humidity)
+    private TextView sk_humidity;
+
+    @ViewInject(R.id.sk_wind)
+    private TextView sk_wind;
+
     @ViewInject(R.id.weather)
     private TextView weather;
 
     @ViewInject(R.id.bar)
     private ProgressBar bar;
-    
+
     @ViewInject(R.id.city)
     private TextView tv_city;
-    
+
     @ViewInject(R.id.temp_room)
     private TextView temp_room;
     @ViewInject(R.id.time)
     private TextView time;
+
+    @ViewInject(R.id.id_clothe)
+    private TextView id_clothe;
+    @ViewInject(R.id.id_comfort)
+    private TextView id_comfort;
 
     String city = null;
 
@@ -67,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (city != null) {
             CacheUtil.save("city", city);
-           
+
         } else {
             city = "郑州";
         }
@@ -104,15 +115,22 @@ public class MainActivity extends ActionBarActivity {
 
                 WeaherInfo weaherInfo = GsonUtil.get(result, WeaherInfo.class);
 
-                
+
                 LLogUtils.i(weaherInfo);
                 SK sk = weaherInfo.getResult().getSk();
                 Today today = weaherInfo.getResult().getToday();
-                temp.setText(sk.getTemp() + "℃");
+                sk_temp.setText(sk.getTemp() + "℃");
+                sk_humidity.setText("湿度：" + sk.getHumidity());
+                sk_wind.setText(sk.getWind_direction() + sk.getWind_strength());
                 weather.setText(today.getWeather());
                 temp_room.setText(today.getTemperature());
                 time.setText(sk.getTime());
-
+                id_clothe.setText("穿衣指数：" + today.getDressing_advice());
+                if (LLStringTools.isEmpty(today.getConfort_index())) {
+                    id_comfort.setVisibility(View.GONE);
+                } else {
+                    id_comfort.setText("舒适指数：" + today.getConfort_index());
+                }
 
             }
         });

@@ -7,10 +7,9 @@
         >
 
     <ProgressBar
-
             style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/bar"
             android:layout_gravity="center_horizontal"/>
 
@@ -52,12 +51,29 @@
 
 
         <TextView
-                android:id="@+id/temp"
-                android:text="正在加载中"
-                android:layout_marginTop="30dp"
+                android:id="@+id/sk_temp"
+                android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"
-                android:textSize="70sp"
+                android:textSize="40sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/sk_humidity"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/sk_wind"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -66,7 +82,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -75,10 +91,33 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:padding="10dp"
+                    android:id="@+id/id_clothe"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:padding="10dp"
+                    android:id="@+id/id_comfort"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
