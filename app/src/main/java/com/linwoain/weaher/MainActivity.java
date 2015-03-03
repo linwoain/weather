@@ -52,6 +52,8 @@ public class MainActivity extends ActionBarActivity {
     private TextView id_clothe;
     @ViewInject(R.id.id_comfort)
     private TextView id_comfort;
+    @ViewInject(R.id.one)
+    private TextView one;
 
     String city = null;
 
@@ -95,6 +97,23 @@ public class MainActivity extends ActionBarActivity {
     private void loadWeather() {
         String url = "http://v.juhe.cn/weather/index?format=2&cityname=" + URLEncoder.encode(city) + "&key=0bd34cf1d6be6758c8db8f3c5316400b";
         HttpUtils httpUtils = new HttpUtils();
+        httpUtils.send(HttpMethod.GET, "http://api.lwl12.com/hitokoto/?encode=js&charset=utf-8", new RequestCallBack<String>() {
+
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+
+                String[] ss = result.split("\"");
+
+                one.setText(ss[1]);
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+            }
+        });
         httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
 
             @Override
