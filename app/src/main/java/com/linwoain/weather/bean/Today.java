@@ -1,4 +1,4 @@
-package com.linwoain.weaher.bean;
+package com.linwoain.weather.bean;
 
 
 import com.linwoain.bean.BaseBean;

@@ -1,4 +1,4 @@
-package com.linwoain.weaher;
+package com.linwoain.weather;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

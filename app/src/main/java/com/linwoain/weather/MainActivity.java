@@ -1,4 +1,4 @@
-package com.linwoain.weaher;
+package com.linwoain.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.linwoain.library.LApplication;
 import com.linwoain.util.*;
-import com.linwoain.weaher.bean.SK;
-import com.linwoain.weaher.bean.Today;
-import com.linwoain.weaher.bean.WeaherInfo;
+import com.linwoain.weather.bean.SK;
+import com.linwoain.weather.bean.Today;
+import com.linwoain.weather.bean.WeaherInfo;
 
 import java.net.URLEncoder;
 
@@ -95,9 +95,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void loadWeather() {
-        String url = "http://v.juhe.cn/weather/index?format=2&cityname=" + URLEncoder.encode(city) + "&key=0bd34cf1d6be6758c8db8f3c5316400b";
+        //获取天气信息的url地址
+        String weatherUrl = "http://v.juhe.cn/weather/index?format=2&cityname=" + URLEncoder.encode(city) + "&key=0bd34cf1d6be6758c8db8f3c5316400b";
+        //获取一句经典话的url地址
+        String oneSentenceUrl = "http://api.lwl12.com/hitokoto/?encode=js&charset=utf-8";
+
         HttpUtils httpUtils = new HttpUtils();
-        httpUtils.send(HttpMethod.GET, "http://api.lwl12.com/hitokoto/?encode=js&charset=utf-8", new RequestCallBack<String>() {
+        httpUtils.send(HttpMethod.GET, oneSentenceUrl, new RequestCallBack<String>() {
 
 
             @Override
@@ -114,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-        httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+        httpUtils.send(HttpMethod.GET, weatherUrl, new RequestCallBack<String>() {
 
             @Override
             public void onFailure(HttpException arg0, String arg1) {
