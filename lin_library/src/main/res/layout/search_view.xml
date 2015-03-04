@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:background="@drawable/search_view"
+              android:gravity="center"
+              android:layout_height="wrap_content">
+
+    <EditText
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/et_search"
+            android:layout_width="1dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_height="40dp"/>
+    <ImageButton
+            android:id="@+id/ib_search"
+            android:background="@drawable/search_03"
+            android:layout_marginRight="10dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+</LinearLayout>

@@ -1,0 +1,8 @@
+<resources>
+
+    <declare-styleable name="ImageWithText">
+        <attr name="src" format="reference" />
+        <attr name="text" format="reference" />
+
+    </declare-styleable>
+</resources>

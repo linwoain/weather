@@ -1,0 +1,23 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/iv"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+    <TextView
+            android:layout_marginTop="1dp"
+            android:id="@+id/tv"
+            android:text="安卓大侠"
+            android:textSize="12sp"
+            android:textColor="@color/image_with_text_default_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
