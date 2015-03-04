@@ -95,29 +95,28 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void loadWeather() {
+        HttpUtils httpUtils = new HttpUtils();
+        
         //获取天气信息的url地址
         String weatherUrl = "http://v.juhe.cn/weather/index?format=2&cityname=" + URLEncoder.encode(city) + "&key=0bd34cf1d6be6758c8db8f3c5316400b";
         //获取一句经典话的url地址
-        String oneSentenceUrl = "http://api.lwl12.com/hitokoto/?encode=js&charset=utf-8";
-
-        HttpUtils httpUtils = new HttpUtils();
-        httpUtils.send(HttpMethod.GET, oneSentenceUrl, new RequestCallBack<String>() {
-
-
+        String oneUrl = "http://api.lwl12.com/hitokoto/";
+        
+        httpUtils.send(HttpMethod.GET,oneUrl,new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-
-                String[] ss = result.split("\"");
-
-                one.setText(ss[1]);
+                one.setText(responseInfo.result);
             }
 
             @Override
             public void onFailure(HttpException error, String msg) {
-
+                LLogUtils.e(msg);
             }
         });
+        
+        
+        
+        
         httpUtils.send(HttpMethod.GET, weatherUrl, new RequestCallBack<String>() {
 
             @Override
