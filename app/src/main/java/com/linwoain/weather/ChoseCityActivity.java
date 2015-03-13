@@ -17,21 +17,23 @@ import com.linwoain.util.ToastUtil;
 public class ChoseCityActivity extends ActionBarActivity {
 
     private LocationClient mLocationClient;
-    private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Battery_Saving;
+    private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Hight_Accuracy;
     private String tempcoor = "gcj02";
+    private EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chose_city);
+         et = (EditText) findViewById(R.id.et_city);
         mLocationClient = new LocationClient(this.getApplicationContext());
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(tempMode);//设置定位模式
         option.setCoorType(tempcoor);//返回的定位结果是百度经纬度，默认值gcj02
-        int span = 1000;
+        int span = 3000;
 
         option.setScanSpan(span);
-        option.setIsNeedAddress(false);
+        option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
 
         mLocationClient.registerLocationListener(new BDLocationListener() {
@@ -41,7 +43,14 @@ public class ChoseCityActivity extends ActionBarActivity {
                     return;
                 }
                 LLogUtils.i(bdLocation.getLatitude()+"---"+bdLocation.getLongitude());
-                LLogUtils.i(bdLocation.getProvince());
+                String city = bdLocation.getCity();
+                LLogUtils.i(city);
+
+                if (!LLStringTools.isEmpty(city)) {
+                    mLocationClient.stop();
+                    et.setText(city);
+                }
+                
             }
         });
 
