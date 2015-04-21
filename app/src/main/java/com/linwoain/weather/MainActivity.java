@@ -1,6 +1,8 @@
 package com.linwoain.weather;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -21,51 +24,58 @@ import com.linwoain.weather.bean.SK;
 import com.linwoain.weather.bean.Today;
 import com.linwoain.weather.bean.WeaherInfo;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.SystemService;
+import org.androidannotations.annotations.ViewById;
+
 import java.net.URLEncoder;
 
+@EActivity(R.layout.activity_main)
 public class MainActivity extends ActionBarActivity {
 
-    @ViewInject(R.id.sk_temp)
-    private TextView sk_temp;
+    @ViewById
+    TextView sk_temp;
 
-    @ViewInject(R.id.sk_humidity)
-    private TextView sk_humidity;
+    @ViewById
+    TextView sk_humidity;
 
-    @ViewInject(R.id.sk_wind)
-    private TextView sk_wind;
+    @ViewById
+    TextView sk_wind;
 
-    @ViewInject(R.id.weather)
-    private TextView weather;
+    @ViewById
+    TextView weather;
 
-    @ViewInject(R.id.bar)
-    private ProgressBar bar;
+    @ViewById
+    ProgressBar bar;
 
-    @ViewInject(R.id.city)
-    private TextView tv_city;
+    @ViewById
+    TextView tv_city;
 
-    @ViewInject(R.id.temp_room)
-    private TextView temp_room;
-    @ViewInject(R.id.time)
-    private TextView time;
+    @ViewById
+    TextView temp_room;
+    @ViewById
+    TextView time;
 
-    @ViewInject(R.id.id_clothe)
-    private TextView id_clothe;
-    @ViewInject(R.id.id_comfort)
-    private TextView id_comfort;
-    @ViewInject(R.id.one)
-    private TextView one;
+    @ViewById
+    TextView id_clothe;
+    @ViewById
+    TextView id_comfort;
+    @ViewById
+    TextView one;
 
     String city = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        LApplication.init(this);
-        ViewUtils.inject(this);
+
+
+
+
+    @AfterViews
+    void init() {
+
 
         Intent i = getIntent();
-
+        LApplication.init(this);
         String cacheCity = CacheUtil.getString("city");
         if (!LLStringTools.isEmpty(cacheCity)) {
             city = cacheCity;
@@ -96,13 +106,13 @@ public class MainActivity extends ActionBarActivity {
 
     private void loadWeather() {
         HttpUtils httpUtils = new HttpUtils();
-        
+
         //获取天气信息的url地址
         String weatherUrl = "http://v.juhe.cn/weather/index?format=2&cityname=" + URLEncoder.encode(city) + "&key=0bd34cf1d6be6758c8db8f3c5316400b";
         //获取一句经典话的url地址
         String oneUrl = "http://api.lwl12.com/hitokoto/";
-        
-        httpUtils.send(HttpMethod.GET,oneUrl,new RequestCallBack<String>() {
+
+        httpUtils.send(HttpMethod.GET, oneUrl, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 one.setText(responseInfo.result);
@@ -113,10 +123,8 @@ public class MainActivity extends ActionBarActivity {
                 LLogUtils.e(msg);
             }
         });
-        
-        
-        
-        
+
+
         httpUtils.send(HttpMethod.GET, weatherUrl, new RequestCallBack<String>() {
 
             @Override
@@ -168,16 +176,12 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.chose_city) {
 
-            Intent i = new Intent(this, ChoseCityActivity.class);
-            startActivity(i);
+            ChoseCityActivity_.intent(this).start();
             finish();
             return true;
         }

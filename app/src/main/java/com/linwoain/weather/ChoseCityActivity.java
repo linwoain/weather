@@ -13,19 +13,23 @@ import com.linwoain.util.LLStringTools;
 import com.linwoain.util.LLogUtils;
 import com.linwoain.util.ToastUtil;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
+@EActivity(R.layout.activity_chose_city)
 public class ChoseCityActivity extends ActionBarActivity {
 
     private LocationClient mLocationClient;
     private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Hight_Accuracy;
     private String tempcoor = "gcj02";
-    private EditText et;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chose_city);
-         et = (EditText) findViewById(R.id.et_city);
+    @ViewById
+     EditText et_city;
+
+
+@AfterViews
+    void init() {
         mLocationClient = new LocationClient(this.getApplicationContext());
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(tempMode);//设置定位模式
@@ -42,18 +46,17 @@ public class ChoseCityActivity extends ActionBarActivity {
                 if (bdLocation == null) {
                     return;
                 }
-                LLogUtils.i(bdLocation.getLatitude()+"---"+bdLocation.getLongitude());
+                LLogUtils.i(bdLocation.getLatitude() + "---" + bdLocation.getLongitude());
                 String city = bdLocation.getCity();
                 LLogUtils.i(city);
 
                 if (!LLStringTools.isEmpty(city)) {
                     mLocationClient.stop();
-                    et.setText(city);
+                    et_city.setText(city);
                 }
-                
+
             }
         });
-
     }
 
     @Override
@@ -65,11 +68,7 @@ public class ChoseCityActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
-    /**
-     * 定位获取地址
-     *
-     * @param v
-     */
+
     public void location(View v) {
         LLogUtils.i("开始定位");
         mLocationClient.start();
@@ -85,9 +84,7 @@ public class ChoseCityActivity extends ActionBarActivity {
             ToastUtil.show("当前城市名为空");
 
         } else {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("city", city);
-            startActivity(intent);
+            MainActivity_.intent(this).extra("city",city).start();
             finish();
         }
     }
