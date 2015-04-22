@@ -8,4 +8,5 @@
     <string name="input_cityname">请输入要使用的城市</string>
     <string name="ok">确定</string>
     <string name="user_location">使用定位</string>
+
 </resources>

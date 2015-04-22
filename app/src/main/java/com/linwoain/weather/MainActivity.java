@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,11 +25,14 @@ import com.linwoain.util.*;
 import com.linwoain.weather.bean.SK;
 import com.linwoain.weather.bean.Today;
 import com.linwoain.weather.bean.WeaherInfo;
+import com.squareup.picasso.Picasso;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.net.URLEncoder;
 
@@ -67,30 +72,22 @@ public class MainActivity extends ActionBarActivity {
     String city = null;
 
 
-
-
-
     @AfterViews
     void init() {
-
-
-        Intent i = getIntent();
         LApplication.init(this);
+        Intent i = getIntent();
         String cacheCity = CacheUtil.getString("city");
         if (!LLStringTools.isEmpty(cacheCity)) {
             city = cacheCity;
         }
-
         if (i != null) {
             String cityIntent = i.getStringExtra("city");
             if (!LLStringTools.isEmpty(cityIntent)) {
                 city = cityIntent;
             }
         }
-
         if (city != null) {
             CacheUtil.save("city", city);
-
         } else {
             city = "郑州";
         }
@@ -105,14 +102,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void loadWeather() {
-        HttpUtils httpUtils = new HttpUtils();
-
-        //获取天气信息的url地址
+        /*获取天气信息的url地址*/
         String weatherUrl = "http://v.juhe.cn/weather/index?format=2&cityname=" + URLEncoder.encode(city) + "&key=0bd34cf1d6be6758c8db8f3c5316400b";
         //获取一句经典话的url地址
         String oneUrl = "http://api.lwl12.com/hitokoto/";
 
-        httpUtils.send(HttpMethod.GET, oneUrl, new RequestCallBack<String>() {
+        LApplication.getHttpUtils().send(HttpMethod.GET, oneUrl, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 one.setText(responseInfo.result);
@@ -125,7 +120,7 @@ public class MainActivity extends ActionBarActivity {
         });
 
 
-        httpUtils.send(HttpMethod.GET, weatherUrl, new RequestCallBack<String>() {
+        LApplication.getHttpUtils().send(HttpMethod.GET, weatherUrl, new RequestCallBack<String>() {
 
             @Override
             public void onFailure(HttpException arg0, String arg1) {
